@@ -11,18 +11,40 @@ type t = {
 };
 
 module Make () :Interface => {
-  let updateDescription: string => unit = [%bs.raw
+   let updateDescription: string => unit = [%bs.raw
     {|
     function (desc) {
         if (typeof(document) === "object" && document.querySelector) {
             var description = document.querySelector('meta[name="description"]');
             if (description) {
               description.setAttribute("content", desc);
+            } else {
+              var meta = document.createElement('meta');
+              meta.setAttribute('name', 'description');
+              meta.setAttribute('content', desc);
+              document.getElementsByTagName('head')[0].appendChild(meta);
             }
         }
     }
-|}
+    |}
   ];
+
+  let updateOgTag: string => string => unit = [%bs.raw
+  {|
+    function (property, content) {
+      if (typeof(document) === "object" && document.querySelector) {
+          var tag = document.querySelector(`meta[property="${property}"]`);
+          if (tag) {
+            tag.setAttribute('content', content);
+          } else {
+            var meta = document.createElement('meta');
+      meta.setAttribute('property', property);
+            meta.setAttribute('content', content);
+            document.getElementsByTagName('head')[0].appendChild(meta);
+          }
+      }
+  }
+  |}];
   let updateTitle: string => unit = [%bs.raw
     {|
     function (title) {
@@ -39,6 +61,7 @@ module Make () :Interface => {
   let description () => a._description;
   let set_description description => {
     updateDescription description;
+    updateOgTag "og:description" description;
     a._description = description
   };
   let title () => a._title;
