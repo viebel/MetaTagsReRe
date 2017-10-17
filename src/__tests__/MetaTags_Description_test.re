@@ -1,12 +1,27 @@
 open Jest;
+
 open ExpectJs;
 
-let setup ::description => Enzyme.shallow <MetaTags_Description description />;
+module Make (MetaTags: MetaTags.Interface) => {
+  let setup ::description => {
+    module Description = MetaTags_Description.Make MetaTags;
+    Enzyme.shallow <Description description />
+  };
+};
 
-describe "Description" (fun () => {
-    test "render and get description" (fun () => {
-        let description = "Hello my description";
-        let _ = setup ::description;
-        expect (MetaTags.description ()) |> toEqual description;
-    });
-});
+describe
+  "Description"
+  (
+    fun () =>
+      test
+        "render and get description"
+        (
+          fun () => {
+            module MetaTags = MetaTags.Make ();
+            module Context = Make MetaTags;
+            let description = "Hello description";
+            let _ = Context.setup ::description;
+            expect (MetaTags.description ()) |> toEqual description
+          }
+        )
+  );

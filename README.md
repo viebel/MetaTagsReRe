@@ -6,10 +6,14 @@ It works both in client side and server side rendering
 
 # Usage
 ```
+module MetaTags = MetaTags.Make ();
+moudule Title = MetaTags_Title.Make MetaTags;
 <Title title="awesome article" />
 ```
 
 ```
+module MetaTags = MetaTags.Make ();
+moudule Description = MetaTags_Description.Make MetaTags;
 <Description description="awesome article about reason react meta tags" />
 ```
 
