@@ -7,7 +7,10 @@ let updateDescription: string => unit = [%bs.raw
   {|
     function (desc) {
         if (typeof(document) === "object" && document.querySelector) {
-            document.querySelector('meta[name="description"]').setAttribute("content", desc);
+            var description = document.querySelector('meta[name="description"]');
+            if (description) {
+              description.setAttribute("content", desc);
+            }
         }
     }
 |}
@@ -17,7 +20,10 @@ let updateTitle: string => unit = [%bs.raw
   {|
     function (title) {
         if (typeof(document) === "object" && document.querySelector) {
-            document.querySelector('title').innerHTML = title;
+            var title = document.querySelector('title');
+            if (title) {
+               title.innerHTML = title;
+            }
         }
     }
 |}

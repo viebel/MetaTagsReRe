@@ -22,3 +22,16 @@ You can retrieve the description value with `MetaTags.description()` and the tit
 
 For client side rendering, the components update the corresponding meta tag with javascript code.
 For server side rendering, the components update some value in `MetaTags` module. This value can be retrieved from anywhere.
+
+
+# Contributing
+
+## Run tests
+```
+yarn test
+```
+
+or watch with:
+```
+yarn test:watch
+```

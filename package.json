@@ -1,20 +1,26 @@
 {
-  "name": "MetaTagsReRe",
+  "name": "meta-tags-re-re",
   "version": "0.0.1",
   "main": "index.js",
   "author": "Maarek Joseph",
   "license": "MIT",
   "devDependencies": {
     "bs-platform": "^1.9.2",
+    "bs-jest": "^0.1.0",
+    "bs-enzyme": "^0.2.0",    
     "webpack": "^3.6.0"
   },
   "scripts": {
     "start": "bsb -make-world -w",
     "build": "bsb -make-world",
+    "test": "jest lib/js/src",
+    "test:watch": "jest lib/js/src --watchAll",
     "clean": "bsb -clean-world && rm -Rvf lib/output"
   },
   "dependencies": {
     "react": "^15.4.2",
+    "reason-react": "^0.2.4",
+    "bs-webapi": "^0.6.1",    
     "react-dom": "^15.4.2"
   }
 }
