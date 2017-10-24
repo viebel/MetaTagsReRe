@@ -10,4 +10,4 @@ module Make (MetaTags: MetaTags.Interface) => {
         </div>
       }
     };
-};
+};  
