@@ -26,7 +26,7 @@ describe
             MetaTags.set_title title;
             module Context = Make MetaTags;
             let children = Context.setup () |> listItems;
-            expect (Enzyme.length children) |> toEqual 3;
+            expect (Enzyme.length children) |> toEqual 7;
           }
         )
   );
