@@ -1,7 +1,7 @@
 {
-    "name" : "MetaTagsReRe",
+    "name" : "meta-tags-re-re",
     "reason" : {"react-jsx" : 2},
-    "bs-dependencies": ["reason-react", "bs-jest", "bs-webapi", "bs-enzyme"],
+    "bs-dependencies": ["reason-react", "bs-jest", "bs-enzyme"],
     "bsc-flags": ["-bs-no-version-header", "-bs-super-errors"],
     "sources": [
       "src",
