@@ -6,13 +6,13 @@ module type Interface = {
   let set_image: string => unit;
   let image: unit => string;
   let set_description: string => unit;
-  let description: unit => string;
+  let description: unit => option string;
   let set_the_type: string => unit;
   let the_type: unit => string;
 };
 
 type t = {
-  mutable _description: string,
+  mutable _description: option string,
   mutable _type: string,
   mutable _url: string,
   mutable _image: string,
@@ -21,12 +21,12 @@ type t = {
 
 module Make () :Interface => {
   module Dom = MetaTags_Dom;
-  let a = {_description: "", _title: "", _type: "", _url: "", _image: ""};
+  let a = {_description: None, _title: "", _type: "", _url: "", _image: ""};
   let description () => a._description;
   let set_description description => {
     Dom.updateDescription description; 
     Dom.updateOgTag "og:description" description;
-    a._description = description
+    a._description = Some description
   };
   let set_the_type the_type => {
     Dom.updateOgTag "og:type" the_type;

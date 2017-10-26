@@ -14,9 +14,9 @@ let listItems wrapper => wrapper |> Enzyme.children;
 describe
   "MetaTagsMetaTags"
   (
-    fun () =>
+    fun () => {
       test
-        "render"
+        "render when description and title are defined"
         (
           fun () => {
             let description = "my description";
@@ -28,5 +28,19 @@ describe
             let children = Context.setup () |> listItems;
             expect (Enzyme.length children) |> toEqual 7;
           }
-        )
+        ); 
+        test
+        "render when title is defined"
+        (
+          fun () => {
+            let title = "my title";
+            module MetaTags = MetaTags.Make ();
+            MetaTags.set_title title;
+            module Context = Make MetaTags;
+            let children = Context.setup () |> listItems;
+            expect (Enzyme.length children) |> toEqual 5;
+          }
+        );
+        }
+       
   );

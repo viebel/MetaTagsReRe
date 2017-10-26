@@ -21,7 +21,10 @@ describe
             module Context = Make MetaTags;
             let description = "Hello description";
             let _ = Context.setup ::description;
-            expect (MetaTags.description ()) |> toEqual description
+            switch (MetaTags.description ()) {
+            | None => expect "foo" |> toBe "bar"
+            | Some desc => expect  desc |> toEqual description
+          }
           }
         )
   );

@@ -60,7 +60,7 @@ describe
               MetaTags.Make {};
             let description = "Hello here";
             MyMetaTags.set_description description;
-            expect (MyMetaTags.description ()) |> toEqual description
+            expect (MyMetaTags.description ()) |> toEqual (Some description)
           }
         );
       test
@@ -78,7 +78,7 @@ describe
           fun () => {
             module MyMetaTags =
               MetaTags.Make {};
-            expect (MyMetaTags.description ()) |> toEqual ""
+            expect (MyMetaTags.description ()) |> toBe None
           }
         );
       test
