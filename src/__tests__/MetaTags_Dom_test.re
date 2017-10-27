@@ -43,58 +43,8 @@ describe
     fun () => {
       let tagname = "title";
       beforeEach (fun () => cleanHead ());
-      describe
-        "updateTitle"
-        (
-          fun () => {
-            test
-              "when title is not defined"
-              (
-                fun () => {
-                  let title = "foo is great";
-                  updateTitle title;
-                  expect (querySelector "title" |> get_innerHTML) |> toBe title
-                }
-              );
-            test
-              "when title is defined"
-              (
-                fun () => {
-                  let title = "foo is great";
-                  updateTitle "bar";
-                  updateTitle title;
-                  expect (querySelector "title" |> get_innerHTML) |> toBe title
-                }
-              )
-          }
-        );
-      describe
-        "updateDescription"
-        (
-          fun () => {
-            test
-              "when description is not defined"
-              (
-                fun () => {                  
-                  let desc = "foo is great";
-                  updateDescription desc; 
-                  expect ((querySelector {|meta[name=description]|}) |> getAttributePipe  "content") |> toBe desc;
-                }
-              );
-             test
-              "when description is defined"
-              (
-                fun () => {
-                  let desc = "foo is great";
-                  updateDescription "bar";
-                  updateDescription desc;
-                  expect ((querySelector {|meta[name=description]|}) |> getAttributePipe "content") |> toBe desc
-                }
-              );
-          }
-        );
         describe
-        "updateOgTag"
+        "updateMetaTag"
         (
           fun () => {
             test
@@ -102,7 +52,7 @@ describe
               (
                 fun () => {                  
                   let desc = "foo is great";
-                  updateOgTag "og:description" desc; 
+                  updateMetaTag "og:description" desc Property; 
                   expect ((querySelector {|meta[property="og:description"]|}) |> getAttributePipe  "content") |> toBe desc;
                 }
               );
@@ -111,8 +61,8 @@ describe
               (
                 fun () => {
                   let desc = "foo is great";
-                  updateOgTag "og:description" "my desc"; 
-                  updateOgTag "og:description" desc; 
+                  updateMetaTag "og:description" "my desc" Property; 
+                  updateMetaTag "og:description" desc Property; 
                   expect ((querySelector {|meta[property="og:description"]|}) |> getAttributePipe "content") |> toBe desc
                 }
               );

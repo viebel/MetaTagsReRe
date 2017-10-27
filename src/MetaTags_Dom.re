@@ -26,7 +26,6 @@ external set_innerHTML : element => string => unit = "innerHTML" [@@bs.set];
 external set_title : document => string => unit = "title" [@@bs.set];
 
   
-
 let elementExists: string => bool = [%bs.raw
   {|
     function(selector) {
@@ -74,11 +73,6 @@ let getOrCreateTagInHead tagname  => {
   }
 };
 
-let updateDescription desc =>
-  if (clientSide ()) {
-    setAttribute (getOrCreateMeta "name" "description") "content" desc
-  };
-
 let metadata_typeToString = fun
 | HttpEquiv => "http-equiv"
 | Property => "property"
@@ -90,14 +84,4 @@ let updateMetaTag key content _type => {
     setAttribute (getOrCreateMeta (metadata_typeToString _type) key) "content" content;
   };
 };
-  
-let updateOgTag property content => 
-  if (clientSide ()) {
-    setAttribute (getOrCreateMeta "property" property) "content" content;
-  };
-let updateTitle title =>
-  if (clientSide ()) {
-    set_title document title;
-  };
-
 
