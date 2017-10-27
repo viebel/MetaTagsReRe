@@ -21,7 +21,7 @@ describe
             module Context = Make MetaTags;
             let the_type = "article";
             let _ = Context.setup ::the_type;
-            expect (MetaTags.the_type ()) |> toEqual the_type
+            expect (MetaTags.the_type ()) |> toEqual (Some the_type)
           }
         )
   );

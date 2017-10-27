@@ -6,8 +6,17 @@ describe
   "MetaTags"
   (
     fun () => {
-      module MyMetaTags =
-        MetaTags.Make {};
+        test
+        "transform_all"
+        (
+          fun () => {
+            module MyMetaTags =
+              MetaTags.Make {};
+            let image = "Hello here";
+            MyMetaTags.set_image image;
+            expect (MyMetaTags.transform_all (fun k _t c => k ^ "@" ^ c)) |> toEqual [|"og:image@Hello here"|]
+          }
+        );
       test
         "title set and get"
         (
@@ -16,7 +25,7 @@ describe
               MetaTags.Make {};
             let title = "Hello here";
             MyMetaTags.set_title title;
-            expect (MyMetaTags.title ()) |> toEqual title
+            expect (MyMetaTags.title ()) |> toEqual (Some title)
           }
         );
       test
@@ -27,7 +36,7 @@ describe
               MetaTags.Make {};
             let the_type = "Hello here";
             MyMetaTags.set_the_type the_type;
-            expect (MyMetaTags.the_type ()) |> toEqual the_type
+            expect (MyMetaTags.the_type ()) |> toEqual (Some the_type)
           }
         );
       test
@@ -38,7 +47,7 @@ describe
               MetaTags.Make {};
             let url = "Hello here";
             MyMetaTags.set_url url;
-            expect (MyMetaTags.url ()) |> toEqual url
+            expect (MyMetaTags.url ()) |> toEqual (Some url)
           }
         );
       test
@@ -49,7 +58,7 @@ describe
               MetaTags.Make {};
             let image = "Hello here";
             MyMetaTags.set_image image;
-            expect (MyMetaTags.image ()) |> toEqual image
+            expect (MyMetaTags.image ()) |> toEqual (Some image)
           }
         );
       test
@@ -69,7 +78,7 @@ describe
           fun () => {
             module MyMetaTags =
               MetaTags.Make {};
-            expect (MyMetaTags.title ()) |> toEqual ""
+            expect (MyMetaTags.title ()) |> toBe None
           }
         );
       test
@@ -87,7 +96,7 @@ describe
           fun () => {
             module MyMetaTags =
               MetaTags.Make {};
-            expect (MyMetaTags.url ()) |> toEqual ""
+            expect (MyMetaTags.url ()) |> toBe None
           }
         );
       test
@@ -96,7 +105,7 @@ describe
           fun () => {
             module MyMetaTags =
               MetaTags.Make {};
-            expect (MyMetaTags.the_type ()) |> toEqual ""
+            expect (MyMetaTags.the_type ()) |> toBe None
           }
         );
       test
@@ -105,7 +114,7 @@ describe
           fun () => {
             module MyMetaTags =
               MetaTags.Make {};
-            expect (MyMetaTags.image ()) |> toEqual ""
+            expect (MyMetaTags.image ()) |> toBe None 
           }
         )
     }

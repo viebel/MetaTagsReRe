@@ -1,25 +1,28 @@
+let titleToTag =
+  fun
+  | None => ReasonReact.stringToElement ""
+  | Some title => <title key=("title@@@" ^ title)> (ReasonReact.stringToElement title) </title>;
 
-let descriptionToTag = fun 
-    | None => ReasonReact.stringToElement ""
-    | Some description =>  (ReasonReact.arrayToElement [|
-                             <meta key="1" name="description" content=description />, 
-                             <meta key="2" property="og:description" content=description />
-                             |]);
-    
+module Dom = MetaTags_Dom;
+
+let tripleToTag key the_type content => {
+  let the_key = key ^ "@" ^ (Dom.metadata_typeToString the_type) ^ "@" ^content ;
+  switch the_type {
+  | Dom.Property => <meta key=the_key property=key content />
+  | Dom.Name => <meta key=the_key name=key content />
+  | Dom.HttpEquiv => <meta key=the_key httpEquiv=key content />
+  | Dom.Title => <title key=the_key> (ReasonReact.stringToElement content) </title>
+  }
+};
 
 module Make (MetaTags: MetaTags.Interface) => {
-    let component = ReasonReact.statelessComponent "MetaTags";
-    let make _children => {
-      ...component,
-      render: fun _ => {        
-        <div>
-            <title> (ReasonReact.stringToElement (MetaTags.title ())) </title>
-            (descriptionToTag (MetaTags.description ()))
-            <meta property="og:title" content=(MetaTags.title ()) />  
-            <meta property="og:type" content=(MetaTags.the_type ()) />        
-            <meta property="og:image" content=(MetaTags.image ()) />      
-            <meta property="og:url" content=(MetaTags.url ()) />        
-        </div>
-      }
-    };
-};  
+  let component = ReasonReact.statelessComponent "MetaTags";
+  let make _children => {
+    ...component,
+    render: fun _ => {
+      let metatags = MetaTags.transform_all tripleToTag;
+      /*TODO - 2017, Oct 27 - Yehonathan: remove the wrapping <div> when we upgrade to React 0.15 */
+      <div> (ReasonReact.arrayToElement metatags) </div>
+    }
+  };
+};

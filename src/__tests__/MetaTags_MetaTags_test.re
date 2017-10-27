@@ -15,30 +15,18 @@ describe
   "MetaTagsMetaTags"
   (
     fun () => {
-      test
-        "render when description and title are defined"
-        (
-          fun () => {
-            let description = "my description";
-            let title = "my title";
-            module MetaTags = MetaTags.Make ();
-            MetaTags.set_description description;
-            MetaTags.set_title title;
-            module Context = Make MetaTags;
-            let children = Context.setup () |> listItems;
-            expect (Enzyme.length children) |> toEqual 7;
-          }
-        ); 
         test
-        "render when title is defined"
+        "render when only title is defined"
         (
           fun () => {
             let title = "my title";
             module MetaTags = MetaTags.Make ();
             MetaTags.set_title title;
+            MetaTags.set_description "desc";
             module Context = Make MetaTags;
-            let children = Context.setup () |> listItems;
-            expect (Enzyme.length children) |> toEqual 5;
+            let wrapper = Context.setup ();
+            let expectedNode = <title>(ReasonReact.stringToElement title)</title>;
+            expect (Enzyme.contains expectedNode wrapper) |> toBe true;
           }
         );
         }

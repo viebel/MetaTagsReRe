@@ -1,3 +1,5 @@
+type metadata_type = | HttpEquiv | Name | Property | Title;
+  
 type document;
 
 type element;
@@ -60,6 +62,7 @@ let createTagInHead tagname => {
   appendChild head el;
   el
 };
+
 let getOrCreateTagInHead tagname  => {
   if (elementExists tagname) {
     querySelector tagname;
@@ -76,6 +79,18 @@ let updateDescription desc =>
     setAttribute (getOrCreateMeta "name" "description") "content" desc
   };
 
+let metadata_typeToString = fun
+| HttpEquiv => "http-equiv"
+| Property => "property"
+| Name => "name"
+| Title => "title";
+
+let updateMetaTag key content _type => {
+  if (clientSide ()) {
+    setAttribute (getOrCreateMeta (metadata_typeToString _type) key) "content" content;
+  };
+};
+  
 let updateOgTag property content => 
   if (clientSide ()) {
     setAttribute (getOrCreateMeta "property" property) "content" content;
@@ -84,3 +99,5 @@ let updateTitle title =>
   if (clientSide ()) {
     set_title document title;
   };
+
+

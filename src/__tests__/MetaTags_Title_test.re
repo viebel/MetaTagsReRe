@@ -21,7 +21,7 @@ describe
             module Context = Make MetaTags;
             let title = "Hello title";
             let _ = Context.setup ::title;
-            expect (MetaTags.title ()) |> toEqual title
+            expect (MetaTags.title ()) |> toEqual (Some title)
           }
         )
   );

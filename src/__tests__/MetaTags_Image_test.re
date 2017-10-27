@@ -21,7 +21,7 @@ describe
             module Context = Make MetaTags;
             let url = "http://my.com/aa.jpg";
             let _ = Context.setup ::url;
-            expect (MetaTags.image ()) |> toEqual url
+            expect (MetaTags.image ()) |> toEqual (Some url)
           }
         )
   );
