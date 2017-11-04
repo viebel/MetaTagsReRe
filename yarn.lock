@@ -465,13 +465,9 @@ bs-jest@^0.1.0:
   dependencies:
     jest "^19.0.2"
 
-bs-platform@^1.9.2:
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-1.9.3.tgz#8c28976ea206165183f0e8bb2c3cfd8a04120a8a"
-
-bs-webapi@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/bs-webapi/-/bs-webapi-0.6.1.tgz#68576ab05e9a2f777bbd15a35a606a815d00e831"
+bs-platform@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-2.0.0.tgz#17ee607fa829f67b8b920438ebca5ec1deab3276"
 
 bser@1.0.2:
   version "1.0.2"
@@ -484,6 +480,10 @@ bser@^2.0.0:
   resolved "https://registry.yarnpkg.com/bser/-/bser-2.0.0.tgz#9ac78d3ed5d915804fd87acb158bc797147a1719"
   dependencies:
     node-int64 "^0.4.0"
+
+bucklescript@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/bucklescript/-/bucklescript-0.0.2.tgz#b598f3cb37c6d9bf7c877da04fd106a38d0c6104"
 
 buffer-xor@^1.0.3:
   version "1.0.3"

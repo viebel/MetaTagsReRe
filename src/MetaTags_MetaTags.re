@@ -1,28 +1,28 @@
 let titleToTag =
   fun
-  | None => ReasonReact.stringToElement ""
-  | Some title => <title key=("title@@@" ^ title)> (ReasonReact.stringToElement title) </title>;
+  | None => ReasonReact.stringToElement("")
+  | Some(title) => <title key=("title@@@" ++ title)> (ReasonReact.stringToElement(title)) </title>;
 
 module Dom = MetaTags_Dom;
 
-let tripleToTag key the_type content => {
-  let the_key = key ^ "@" ^ (Dom.metadata_typeToString the_type) ^ "@" ^content ;
+let tripleToTag = (key, the_type, content) => {
+  let the_key = key ++ ("@" ++ (Dom.metadata_typeToString(the_type) ++ ("@" ++ content)));
   switch the_type {
   | Dom.Property => <meta key=the_key property=key content />
   | Dom.Name => <meta key=the_key name=key content />
   | Dom.HttpEquiv => <meta key=the_key httpEquiv=key content />
-  | Dom.Title => <title key=the_key> (ReasonReact.stringToElement content) </title>
+  | Dom.Title => <title key=the_key> (ReasonReact.stringToElement(content)) </title>
   }
 };
 
-module Make (MetaTags: MetaTags.Interface) => {
-  let component = ReasonReact.statelessComponent "MetaTags";
-  let make _children => {
+module Make = (MetaTags: MetaTags.Interface) => {
+  let component = ReasonReact.statelessComponent("MetaTags");
+  let make = (_children) => {
     ...component,
-    render: fun _ => {
-      let metatags = MetaTags.transform_all tripleToTag;
+    render: (_) => {
+      let metatags = MetaTags.transform_all(tripleToTag);
       /*TODO - 2017, Oct 27 - Yehonathan: remove the wrapping <div> when we upgrade to React 0.15 */
-      <div> (ReasonReact.arrayToElement metatags) </div>
+      <div> (ReasonReact.arrayToElement(metatags)) </div>
     }
   };
 };

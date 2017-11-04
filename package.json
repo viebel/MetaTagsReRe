@@ -5,9 +5,9 @@
   "author": "Maarek Joseph",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^1.9.2",
-    "bs-jest": "^0.1.0",
     "bs-enzyme": "^0.2.0",
+    "bs-jest": "^0.1.0",
+    "bs-platform": "^2.0.0",
     "webpack": "^3.6.0"
   },
   "scripts": {
@@ -18,8 +18,9 @@
     "clean": "bsb -clean-world && rm -Rvf lib/output"
   },
   "dependencies": {
+    "bucklescript": "^0.0.2",
     "react": "^15.4.2",
-    "reason-react": "^0.2.4",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "reason-react": "^0.2.4"
   }
 }
