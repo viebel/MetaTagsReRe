@@ -1,6 +1,7 @@
 open Jest;
 
 open ExpectJs;
+Testutils.configure();
 
 describe(
   "MetaTags",

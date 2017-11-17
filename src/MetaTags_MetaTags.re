@@ -22,7 +22,7 @@ module Make = (MetaTags: MetaTags.Interface) => {
     render: (_) => {
       let metatags = MetaTags.transform_all(tripleToTag);
       /*TODO - 2017, Oct 27 - Yehonathan: remove the wrapping <div> when we upgrade to React 0.15 */
-      <div> (ReasonReact.arrayToElement(metatags)) </div>
+      (ReasonReact.arrayToElement(metatags))
     }
   };
 };

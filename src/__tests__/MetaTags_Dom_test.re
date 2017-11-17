@@ -4,6 +4,9 @@ open MetaTags_Dom;
 
 open ExpectJs;
 
+Testutils.configure();
+
+
 [@bs.val] external querySelector : string => element = "document.querySelector";
 
 [@bs.send] external remove : element => unit = "";

@@ -2,6 +2,9 @@ open Jest;
 
 open ExpectJs;
 
+Testutils.configure();
+
+
 module Make = (MetaTags: MetaTags.Interface) => {
   let setup = (~url) => {
     module Image = MetaTags_Image.Make(MetaTags);

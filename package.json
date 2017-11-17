@@ -5,10 +5,17 @@
   "author": "Yehonathan Sharvit",
   "license": "MIT",
   "devDependencies": {
-    "bs-enzyme": "^0.2.0",
-    "bs-jest": "^0.1.0",
+    "bs-enzyme": "viebel/bs-enzyme#master",
+    "bs-jest": "^0.2.0",
     "bs-platform": "^2.0.0",
+    "enzyme-adapter-react-16": "1.1.0",
     "webpack": "^3.6.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules",
+      "testutils.js"
+    ]
   },
   "scripts": {
     "start": "bsb -make-world -w",
@@ -19,8 +26,8 @@
   },
   "dependencies": {
     "bucklescript": "^0.0.2",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "reason-react": "^0.2.4"
   }
 }

@@ -1,6 +1,7 @@
 open Jest;
 
 open ExpectJs;
+Testutils.configure();
 
 module Make = (MetaTags: MetaTags.Interface) => {
   let setup = (~the_type) => {

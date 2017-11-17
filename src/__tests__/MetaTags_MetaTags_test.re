@@ -1,11 +1,12 @@
 open Jest;
 
 open ExpectJs;
+Testutils.configure();
 
 module Make = (MetaTags: MetaTags.Interface) => {
   let setup = () => {
     module MetaTags = MetaTags_MetaTags.Make(MetaTags);
-    Enzyme.shallow(<MetaTags />)
+    Testutils.mount(<MetaTags />)
   };
 };
 
@@ -27,7 +28,7 @@ describe(
         module Context = Make(MetaTags);
         let wrapper = Context.setup();
         let expectedNode = <title> (ReasonReact.stringToElement(title)) </title>;
-        expect(Enzyme.contains(expectedNode, wrapper)) |> toBe(true)
+       expect(Enzyme.contains(expectedNode, wrapper)) |> toBe(true);
       }
     )
 );
