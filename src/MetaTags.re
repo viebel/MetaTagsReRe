@@ -49,7 +49,7 @@ module Make = (()) : Interface => {
   let the_type = () => get_metadata("og:type", Property);
   let title = () => get_metadata("og:title", Property);
   let set_title = (title) => {
-    Dom.set_title(Dom.document, title);
+    Dom.updateTitle(title);
     set_metadata("", title, Title);
     set_metadata("og:title", title, Property)
   };

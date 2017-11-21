@@ -86,3 +86,8 @@ let updateMetaTag = (key, content, _type) =>
   if (clientSide()) {
     setAttribute(getOrCreateMeta(metadata_typeToString(_type), key), "content", content)
   };
+
+let updateTitle = (title) =>
+  if (clientSide()) {
+    set_title(document, title)
+  };
