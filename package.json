@@ -1,6 +1,6 @@
 {
   "name": "meta-tags-re-re",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "index.js",
   "author": "Yehonathan Sharvit",
   "license": "MIT",
@@ -9,8 +9,13 @@
     "bs-jest": "^0.2.0",
     "bs-platform": "^2.0.0",
     "enzyme-adapter-react-16": "1.1.0",
+    "reason-react": "^0.3.0",
     "webpack": "^3.8.1"
   },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },    
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules",
@@ -23,13 +28,5 @@
     "test": "jest lib/js/src",
     "test:watch": "jest lib/js/src --watchAll",
     "clean": "bsb -clean-world && rm -Rvf lib/output"
-  },
-  "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  }    
-  "dependencies": {
-    "bucklescript": "^0.0.2",
-    "reason-react": "^0.2.4"
   }
 }
