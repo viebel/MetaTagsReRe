@@ -1,6 +1,6 @@
 {
   "name": "meta-tags-re-re",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "index.js",
   "author": "Yehonathan Sharvit",
   "license": "MIT",
@@ -24,10 +24,12 @@
     "test:watch": "jest lib/js/src --watchAll",
     "clean": "bsb -clean-world && rm -Rvf lib/output"
   },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }    
   "dependencies": {
     "bucklescript": "^0.0.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
     "reason-react": "^0.2.4"
   }
 }
