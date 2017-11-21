@@ -1,11 +1,11 @@
 {
   "name": "meta-tags-re-re",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "index.js",
   "author": "Yehonathan Sharvit",
   "license": "MIT",
   "devDependencies": {
-    "bs-enzyme": "^0.3.0-beta.1",
+      "bs-enzyme": "viebel/bs-enzyme#master",
     "bs-jest": "^0.2.0",
     "bs-platform": "^2.0.0",
     "enzyme-adapter-react-16": "1.1.0",

@@ -479,9 +479,9 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-bs-enzyme@^0.3.0-beta.1:
-  version "0.3.0-beta.1"
-  resolved "https://registry.yarnpkg.com/bs-enzyme/-/bs-enzyme-0.3.0-beta.1.tgz#8def90c8dc107389c50902c85ffedc269b194ecc"
+bs-enzyme@viebel/bs-enzyme#master:
+  version "0.2.0"
+  resolved "https://codeload.github.com/viebel/bs-enzyme/tar.gz/5e1517c3937fa0bb4ae456a8a70306b9a032d2a2"
   dependencies:
     enzyme "^3.2.0"
     react-dom "^16.1.1"
