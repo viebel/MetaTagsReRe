@@ -1,9 +1,26 @@
 {
   "name": "meta-tags-re-re",
+  "descprition": "Meta tags ReasonReact components for client and server side rendering ",
   "version": "0.1.5",
   "main": "index.js",
   "author": "Yehonathan Sharvit",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viebel/MetaTagsReRe.git"
+  },
+  "keywords": [
+    "reason",
+    "bucklescript",
+    "react",
+    "reason-react",
+    "html",
+    "meta"
+  ],
+  "bugs": {
+    "url": "https://github.com/viebel/MetaTagsReRe/issues"
+  },
+  "homepage": "https://github.com/viebel/MetaTagsReRe#readme",
   "devDependencies": {
     "bs-enzyme": "viebel/bs-enzyme#master",
     "bs-jest": "^0.2.0",
