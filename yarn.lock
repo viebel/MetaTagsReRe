@@ -479,12 +479,11 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-bs-enzyme@viebel/bs-enzyme#master:
-  version "0.2.0"
-  resolved "https://codeload.github.com/viebel/bs-enzyme/tar.gz/5e1517c3937fa0bb4ae456a8a70306b9a032d2a2"
+bs-enzyme@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/bs-enzyme/-/bs-enzyme-0.3.1.tgz#eeb63659a7f907163caaad22f0c2efab4b3d2e52"
   dependencies:
     enzyme "^3.2.0"
-    react-dom "^16.1.1"
     react-test-renderer "^16.1.1"
 
 bs-jest@^0.2.0:
@@ -493,9 +492,9 @@ bs-jest@^0.2.0:
   dependencies:
     jest "^21.2.1"
 
-bs-platform@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-2.0.0.tgz#17ee607fa829f67b8b920438ebca5ec1deab3276"
+bs-platform@^2.0.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-2.2.1.tgz#e22b82143a43a10630d7b2040aab87648b12190c"
 
 bser@^2.0.0:
   version "2.0.0"
@@ -2804,7 +2803,7 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"react-dom@>=15.0.0 || >=16.0.0", react-dom@^16.1.1:
+"react-dom@>=15.0.0 || >=16.0.0":
   version "16.1.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.1.1.tgz#b2e331b6d752faf1a2d31399969399a41d8d45f8"
   dependencies:

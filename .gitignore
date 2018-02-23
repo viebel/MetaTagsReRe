@@ -2,3 +2,4 @@ node_modules/
 .merlin
 lib/
 .yarnclean
+.bsb.lock
