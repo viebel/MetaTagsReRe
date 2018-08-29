@@ -6,8 +6,8 @@ open ExpectJs;
 
 Testutils.configure();
 
-
-[@bs.val] external querySelector : string => element = "document.querySelector";
+[@bs.val]
+external querySelector : string => element = "document.querySelector";
 
 [@bs.send] external remove : element => unit = "";
 
@@ -17,9 +17,11 @@ Testutils.configure();
 
 [@bs.send] external getAttribute : (element, string) => string = "";
 
-[@bs.send.pipe : element] external getAttributePipe : string => string = "getAttribute";
+[@bs.send.pipe: element]
+external getAttributePipe : string => string = "getAttribute";
 
-[@bs.val] external getElementsByTagName : string => array(element) =
+[@bs.val]
+external getElementsByTagName : string => array(element) =
   "document.getElementsByTagName";
 
 let cleanHead: unit => unit = [%bs.raw
@@ -41,67 +43,45 @@ let cleanHead: unit => unit = [%bs.raw
 |}
 ];
 
-describe(
-  "MetaTags_Dom",
-  () => {
-    let tagname = "title";
-    beforeEach(() => cleanHead());
-    describe(
-      "updateMetaTag",
-      () => {
-        test(
-          "when tag is not defined",
-          () => {
-            let desc = "foo is great";
-            updateMetaTag("og:description", desc, Property);
-            expect(
-              querySelector({|meta[property="og:description"]|}) |> getAttributePipe("content")
-            )
-            |> toBe(desc)
-          }
-        );
-        test(
-          "when tag is defined",
-          () => {
-            let desc = "foo is great";
-            updateMetaTag("og:description", "my desc", Property);
-            updateMetaTag("og:description", desc, Property);
-            expect(
-              querySelector({|meta[property="og:description"]|}) |> getAttributePipe("content")
-            )
-            |> toBe(desc)
-          }
-        )
-      }
-    );
-    describe(
-      "getOrCreateTagInHead and createTagInHead",
-      () => {
-        test(
-          "when a tag already exists, it should retrieve it",
-          () => {
-            let previousTag = createTagInHead(tagname);
-            let _ = getOrCreateTagInHead(tagname);
-            let newTag = getElementsByTagName(tagname)[0];
-            expect(newTag) |> toEqual(previousTag)
-          }
-        );
-        test(
-          "when a tag already exists, it should not create a new one",
-          () => {
-            let _ = createTagInHead(tagname);
-            let _ = getOrCreateTagInHead(tagname);
-            expect(getElementsByTagName(tagname) |> Array.length) |> toBe(1)
-          }
-        );
-        test(
-          "when a tag doesn't exist, it should create a new one",
-          () => {
-            let _ = getOrCreateTagInHead(tagname);
-            expect(getElementsByTagName(tagname) |> Array.length) |> toEqual(1)
-          }
-        )
-      }
-    )
-  }
-);
+describe("MetaTags_Dom", () => {
+  let tagname = "title";
+  beforeEach(() => cleanHead());
+  describe("updateMetaTag", () => {
+    test("when tag is not defined", () => {
+      let desc = "foo is great";
+      updateMetaTag("og:description", desc, Property);
+      expect(
+        querySelector({|meta[property="og:description"]|})
+        |> getAttributePipe("content"),
+      )
+      |> toBe(desc);
+    });
+    test("when tag is defined", () => {
+      let desc = "foo is great";
+      updateMetaTag("og:description", "my desc", Property);
+      updateMetaTag("og:description", desc, Property);
+      expect(
+        querySelector({|meta[property="og:description"]|})
+        |> getAttributePipe("content"),
+      )
+      |> toBe(desc);
+    });
+  });
+  describe("getOrCreateTagInHead and createTagInHead", () => {
+    test("when a tag already exists, it should retrieve it", () => {
+      let previousTag = createTagInHead(tagname);
+      let _ = getOrCreateTagInHead(tagname);
+      let newTag = getElementsByTagName(tagname)[0];
+      expect(newTag) |> toEqual(previousTag);
+    });
+    test("when a tag already exists, it should not create a new one", () => {
+      let _ = createTagInHead(tagname);
+      let _ = getOrCreateTagInHead(tagname);
+      expect(getElementsByTagName(tagname) |> Array.length) |> toBe(1);
+    });
+    test("when a tag doesn't exist, it should create a new one", () => {
+      let _ = getOrCreateTagInHead(tagname);
+      expect(getElementsByTagName(tagname) |> Array.length) |> toEqual(1);
+    });
+  });
+});

@@ -10,9 +10,11 @@ type element;
 
 [@bs.val] external document : document = "";
 
-[@bs.val] external querySelector : string => element = "document.querySelector";
+[@bs.val]
+external querySelector : string => element = "document.querySelector";
 
-[@bs.val] external createElement : string => element = "document.createElement";
+[@bs.val]
+external createElement : string => element = "document.createElement";
 
 [@bs.send] external appendChild : (element, element) => unit = "";
 
@@ -22,7 +24,8 @@ type element;
 
 [@bs.send] external hasOwnProperty : ('a, string) => bool = "";
 
-[@bs.val] external getElementsByTagName : string => array(element) =
+[@bs.val]
+external getElementsByTagName : string => array(element) =
   "document.getElementsByTagName";
 
 [@bs.set] external set_innerHTML : (element, string) => unit = "innerHTML";
@@ -46,33 +49,33 @@ let clientSide: unit => bool = [%bs.raw
 ];
 
 let getOrCreateMeta = (key, value) => {
-  let selector = "meta[" ++ (key ++ ("='" ++ (value ++ "']")));
+  let selector = "meta[" ++ key ++ "='" ++ value ++ "']";
   if (elementExists(selector)) {
-    querySelector(selector)
+    querySelector(selector);
   } else {
     let meta = createElement("meta");
     setAttribute(meta, key, value);
     let head = getElementsByTagName("head")[0];
     appendChild(head, meta);
-    meta
-  }
+    meta;
+  };
 };
 
-let createTagInHead = (tagname) => {
+let createTagInHead = tagname => {
   let el = createElement(tagname);
   let head = getElementsByTagName("head")[0];
   appendChild(head, el);
-  el
+  el;
 };
 
-let getOrCreateTagInHead = (tagname) =>
+let getOrCreateTagInHead = tagname =>
   if (elementExists(tagname)) {
-    querySelector(tagname)
+    querySelector(tagname);
   } else {
     let el = createElement(tagname);
     let head = getElementsByTagName("head")[0];
     appendChild(head, el);
-    el
+    el;
   };
 
 let metadata_typeToString =
@@ -84,10 +87,14 @@ let metadata_typeToString =
 
 let updateMetaTag = (key, content, _type) =>
   if (clientSide()) {
-    setAttribute(getOrCreateMeta(metadata_typeToString(_type), key), "content", content)
+    setAttribute(
+      getOrCreateMeta(metadata_typeToString(_type), key),
+      "content",
+      content,
+    );
   };
 
-let updateTitle = (title) =>
+let updateTitle = title =>
   if (clientSide()) {
-    set_title(document, title)
+    set_title(document, title);
   };
