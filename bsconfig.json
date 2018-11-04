@@ -1,14 +1,23 @@
 {
-    "name" : "meta-tags-re-re",
-    "reason" : {"react-jsx" : 2},
+    "name": "meta-tags-re-re",
+    "reason": {
+        "react-jsx": 2
+    },
     "refmt": 3,
-    "bs-dependencies": ["reason-react", "bs-jest", "bs-enzyme"],
-    "bsc-flags": ["-bs-no-version-header", "-bs-super-errors"],
+    "bs-dependencies": [
+        "reason-react",
+        "bs-jest",
+        "bs-enzyme"
+    ],
+    "bsc-flags": [
+        "-bs-no-version-header",
+        "-bs-super-errors"
+    ],
     "sources": [
-	{
-	    "dir": "src/__tests__",
-	    "type": "dev"
-	},
-      "src"
+        "src",
+        {
+            "dir": "src/__tests__",
+            "type": "dev"
+        }
     ]
-  }
+}

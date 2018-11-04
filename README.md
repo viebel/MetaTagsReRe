@@ -17,6 +17,16 @@ moudule Description = MetaTags_Description.Make MetaTags;
 <Description description="awesome article about reason react meta tags" />
 ```
 
+# Browser
+
+On the browser do not forget to update the dom
+
+```
+module MetaTags = MetaTags.Make ();
+/*...*/
+MetaTags.addSubscriber(() => MetaTags.Dom.updateAll(MetaTags.getAll()));
+```
+
 # Server side rendering
 
 Somewhere you need to add the static meta tags for description and title.
@@ -39,3 +49,5 @@ or watch with:
 ```
 yarn test:watch
 ```
+
+

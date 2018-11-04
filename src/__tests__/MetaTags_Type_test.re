@@ -4,9 +4,9 @@ open ExpectJs;
 Testutils.configure();
 
 module Make = (MetaTags: MetaTags.Interface) => {
-  let setup = (~the_type) => {
+  let setup = (~type_) => {
     module Type = MetaTags_Type.Make(MetaTags);
-    Enzyme.shallow(<Type the_type />);
+    Enzyme.shallow(<Type type_ />);
   };
 };
 
@@ -15,8 +15,8 @@ describe("Type", () =>
     module MetaTags =
       MetaTags.Make({});
     module Context = Make(MetaTags);
-    let the_type = "article";
-    let _ = Context.setup(~the_type);
-    expect(MetaTags.the_type()) |> toEqual(Some(the_type));
+    let type_ = "article";
+    let _ = Context.setup(~type_);
+    expect(MetaTags.type_()) |> toEqual(Some(type_));
   })
 );

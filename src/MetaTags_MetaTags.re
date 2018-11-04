@@ -4,16 +4,15 @@ let titleToTag =
   | Some(title) =>
     <title key=("title@@@" ++ title)> (ReasonReact.string(title)) </title>;
 
-module Dom = MetaTags_Dom;
-
-let tripleToTag = (key, the_type, content) => {
+let tripleToTag = (key, type_, content) => {
   let the_key =
-    key ++ "@" ++ Dom.metadata_typeToString(the_type) ++ "@" ++ content;
-  switch (the_type) {
-  | Dom.Property => <meta key=the_key property=key content />
-  | Dom.Name => <meta key=the_key name=key content />
-  | Dom.HttpEquiv => <meta key=the_key httpEquiv=key content />
-  | Dom.Title => <title key=the_key> (ReasonReact.string(content)) </title>
+    key ++ "@" ++ MetaTags_Metadata_Type.typeToString(type_) ++ "@" ++ content;
+  switch (type_) {
+  | MetaTags_Metadata_Type.Property =>
+    <meta key=the_key property=key content />
+  | Name => <meta key=the_key name=key content />
+  | Title => <title key=the_key> (ReasonReact.string(content)) </title>
+  | HttpEquiv => <meta key=the_key httpEquiv=key content />
   };
 };
 
@@ -22,8 +21,8 @@ module Make = (MetaTags: MetaTags.Interface) => {
   let make = _children => {
     ...component,
     render: _ => {
-      let metatags = MetaTags.transform_all(tripleToTag);
-      ReasonReact.array(metatags);
+      let metatags = MetaTags.transformAll(tripleToTag);
+      ReasonReact.array(metatags |> Array.of_list);
     },
   };
 };

@@ -4,47 +4,47 @@ open ExpectJs;
 Testutils.configure();
 
 describe("MetaTags", () => {
-  test("transform_all", () => {
+  test("transformAll", () => {
     module MyMetaTags =
       MetaTags.Make({});
     let image = "Hello here";
-    MyMetaTags.set_image(image);
-    expect(MyMetaTags.transform_all((k, _t, c) => k ++ "@" ++ c))
-    |> toEqual([|"og:image@Hello here"|]);
+    MyMetaTags.setImage(image);
+    expect(MyMetaTags.transformAll((k, _t, c) => k ++ "@" ++ c))
+    |> toEqual(["og:image@Hello here"]);
   });
   test("title set and get", () => {
     module MyMetaTags =
       MetaTags.Make({});
     let title = "Hello here";
-    MyMetaTags.set_title(title);
+    MyMetaTags.setTitle(title);
     expect(MyMetaTags.title()) |> toEqual(Some(title));
   });
   test("type set and get", () => {
     module MyMetaTags =
       MetaTags.Make({});
-    let the_type = "Hello here";
-    MyMetaTags.set_the_type(the_type);
-    expect(MyMetaTags.the_type()) |> toEqual(Some(the_type));
+    let type_ = "Hello here";
+    MyMetaTags.setType(type_);
+    expect(MyMetaTags.type_()) |> toEqual(Some(type_));
   });
   test("url set and get", () => {
     module MyMetaTags =
       MetaTags.Make({});
     let url = "Hello here";
-    MyMetaTags.set_url(url);
+    MyMetaTags.setUrl(url);
     expect(MyMetaTags.url()) |> toEqual(Some(url));
   });
   test("image set and get", () => {
     module MyMetaTags =
       MetaTags.Make({});
     let image = "Hello here";
-    MyMetaTags.set_image(image);
+    MyMetaTags.setImage(image);
     expect(MyMetaTags.image()) |> toEqual(Some(image));
   });
   test("description set and get", () => {
     module MyMetaTags =
       MetaTags.Make({});
     let description = "Hello here";
-    MyMetaTags.set_description(description);
+    MyMetaTags.setDescription(description);
     expect(MyMetaTags.description()) |> toEqual(Some(description));
   });
   test("title is empty", () => {
@@ -65,11 +65,20 @@ describe("MetaTags", () => {
   test("type is empty", () => {
     module MyMetaTags =
       MetaTags.Make({});
-    expect(MyMetaTags.the_type()) |> toBe(None);
+    expect(MyMetaTags.type_()) |> toBe(None);
   });
   test("image is empty", () => {
     module MyMetaTags =
       MetaTags.Make({});
     expect(MyMetaTags.image()) |> toBe(None);
+  });
+  test("add subscriber", () => {
+    module MyMetaTags =
+      MetaTags.Make({});
+    let isCalled = ref(false);
+    MyMetaTags.addSubscriber(() => isCalled := true);
+    MyMetaTags.setMetadata("title", "My title", Title);
+
+    expect(isCalled^) |> toBe(true);
   });
 });

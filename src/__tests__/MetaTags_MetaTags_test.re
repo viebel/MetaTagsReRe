@@ -17,8 +17,8 @@ describe("MetaTagsMetaTags", () =>
     let title = "my title";
     module MetaTags =
       MetaTags.Make({});
-    MetaTags.set_title(title);
-    MetaTags.set_description("desc");
+    MetaTags.setTitle(title);
+    MetaTags.setDescription("desc");
     module Context = Make(MetaTags);
     let wrapper = Context.setup();
     let expectedNode = <title> (ReasonReact.string(title)) </title>;

@@ -1,7 +1,9 @@
 module Dom = MetaTags_Dom;
 
+type metadata = MetaTags_Metadata_Type.t;
+
 module Pairs = {
-  type t = (string, Dom.metadata_type);
+  type t = (string, metadata);
   let compare = ((x0, _y0), (x1, _y1)) => Pervasives.compare(x0, x1);
 };
 
@@ -9,53 +11,62 @@ module PairsMap = Map.Make(Pairs);
 
 type t = {mutable map: PairsMap.t(string)};
 
+type subscriber = unit => unit;
+
 module type Interface = {
-  let transform_all:
-    ((string, MetaTags_Dom.metadata_type, string) => 'a) => array('a);
-  let set_metadata: (string, string, MetaTags_Dom.metadata_type) => unit;
-  let get_metadata: (string, MetaTags_Dom.metadata_type) => option(string);
-  let set_title: string => unit;
+  let addSubscriber: subscriber => unit;
+  let getAll: unit => list((string, metadata, string));
+  let transformAll: ((string, metadata, string) => 'a) => list('a);
+  let setMetadata: (string, string, metadata) => unit;
+  let getMetadata: (string, metadata) => option(string);
+  let setTitle: string => unit;
   let title: unit => option(string);
-  let set_url: string => unit;
+  let setUrl: string => unit;
   let url: unit => option(string);
-  let set_image: string => unit;
+  let setImage: string => unit;
   let image: unit => option(string);
-  let set_description: string => unit;
+  let setDescription: string => unit;
   let description: unit => option(string);
-  let set_the_type: string => unit;
-  let the_type: unit => option(string);
+  let setType: string => unit;
+  let type_: unit => option(string);
 };
 
 module Make = (()) : Interface => {
+  let subscribers: ref(list(subscriber)) = ref([]);
+  let fire = () => subscribers^ |> List.iter(subscriber => subscriber());
+  let addSubscriber = subscriber =>
+    subscribers := [subscriber, ...subscribers^];
+
   let a = {map: PairsMap.empty};
-  let transform_all = f =>
-    PairsMap.bindings(a.map)
-    |> List.map((((key, _type), content)) => f(key, _type, content))
-    |> Array.of_list;
-  let set_metadata = (key, content, _type) => {
+
+  let getAll = () =>
+    a.map |> PairsMap.bindings |> List.map((((k, t), c)) => (k, t, c));
+
+  let transformAll = f => getAll() |> List.map(((k, t, c)) => f(k, t, c));
+
+  let setMetadata = (key, content, _type) => {
     a.map = PairsMap.add((key, _type), content, a.map);
-    Dom.updateMetaTag(key, content, _type);
+    fire();
   };
-  let get_metadata = (key, _type) =>
+  let getMetadata = (key, _type) =>
     switch (PairsMap.find((key, _type), a.map)) {
     | item => Some(item)
     | exception Not_found => None
     };
-  let description = () => get_metadata("description", Name);
-  let set_description = description => {
-    set_metadata("description", description, Name);
-    set_metadata("og:description", description, Property);
+  let description = () => getMetadata("description", Name);
+  let setDescription = description => {
+    setMetadata("description", description, Name);
+    setMetadata("og:description", description, Property);
   };
-  let set_the_type = the_type => set_metadata("og:type", the_type, Property);
-  let the_type = () => get_metadata("og:type", Property);
-  let title = () => get_metadata("og:title", Property);
-  let set_title = title => {
-    Dom.updateTitle(title);
-    set_metadata("", title, Title);
-    set_metadata("og:title", title, Property);
+  let setType = type_ => setMetadata("og:type", type_, Property);
+  let type_ = () => getMetadata("og:type", Property);
+  let title = () => getMetadata("og:title", Property);
+  let setTitle = title => {
+    setMetadata("", title, Title);
+    setMetadata("og:title", title, Property);
   };
-  let url = () => get_metadata("og:url", Property);
-  let set_url = url => set_metadata("og:url", url, Property);
-  let image = () => get_metadata("og:image", Property);
-  let set_image = image => set_metadata("og:image", image, Property);
+  let url = () => getMetadata("og:url", Property);
+  let setUrl = url => setMetadata("og:url", url, Property);
+  let image = () => getMetadata("og:image", Property);
+  let setImage = image => setMetadata("og:image", image, Property);
 };

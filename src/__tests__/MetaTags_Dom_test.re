@@ -24,6 +24,10 @@ external getAttributePipe : string => string = "getAttribute";
 external getElementsByTagName : string => array(element) =
   "document.getElementsByTagName";
 
+type document;
+[@bs.val] external document : document = "document";
+[@bs.get] external documentTitle : document => string = "title";
+
 let cleanHead: unit => unit = [%bs.raw
   {|
     function () {
@@ -34,8 +38,7 @@ let cleanHead: unit => unit = [%bs.raw
             }
         }
         const selectorsToRemove = [
-            'meta[property="og:title"]',
-            'meta[name="description"]',
+            'meta',
             'title'
         ];
         selectorsToRemove.forEach(s => removeIfExists(s));
@@ -44,8 +47,46 @@ let cleanHead: unit => unit = [%bs.raw
 ];
 
 describe("MetaTags_Dom", () => {
-  let tagname = "title";
   beforeEach(() => cleanHead());
+
+  describe("updateAll", () => {
+    let updateAllFn = () =>
+      updateAll([
+        ("og:description", Property, "my og desc"),
+        ("title", Title, "title"),
+        ("description", Name, "my desc"),
+        ("my-http", HttpEquiv, "my http equiv"),
+      ]);
+    test("test property", () => {
+      updateAllFn();
+      expect(
+        querySelector({|meta[property="og:description"]|})
+        |> getAttributePipe("content"),
+      )
+      |> toBe("my og desc");
+    });
+    test("test title", () => {
+      updateAllFn();
+      expect(documentTitle(document)) |> toBe("title");
+    });
+    test("test name", () => {
+      updateAllFn();
+      expect(
+        querySelector({|meta[name="description"]|})
+        |> getAttributePipe("content"),
+      )
+      |> toBe("my desc");
+    });
+    test("test http equiv", () => {
+      updateAllFn();
+      expect(
+        querySelector({|meta[http-equiv="my-http"]|})
+        |> getAttributePipe("content"),
+      )
+      |> toBe("my http equiv");
+    });
+  });
+
   describe("updateMetaTag", () => {
     test("when tag is not defined", () => {
       let desc = "foo is great";
@@ -68,6 +109,7 @@ describe("MetaTags_Dom", () => {
     });
   });
   describe("getOrCreateTagInHead and createTagInHead", () => {
+    let tagname = "title";
     test("when a tag already exists, it should retrieve it", () => {
       let previousTag = createTagInHead(tagname);
       let _ = getOrCreateTagInHead(tagname);
