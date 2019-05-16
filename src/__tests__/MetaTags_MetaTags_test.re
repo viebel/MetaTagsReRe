@@ -1,27 +1,17 @@
 open Jest;
+open Expect;
+open ReactTestingLibrary;
 
-open ExpectJs;
-Testutils.configure();
-
-module Make = (MetaTags: MetaTags.Interface) => {
-  let setup = () => {
-    module MetaTags = MetaTags_MetaTags.Make(MetaTags);
-    Testutils.mount(<MetaTags />);
-  };
-};
-
-let listItems = wrapper => wrapper |> Enzyme.children;
+afterEach(cleanup);
 
 describe("MetaTagsMetaTags", () =>
-  test("render when only title is defined", () => {
-    let title = "my title";
+  test("render when title is defined", () => {
     module MetaTags =
       MetaTags.Make({});
-    MetaTags.setTitle(title);
-    MetaTags.setDescription("desc");
-    module Context = Make(MetaTags);
-    let wrapper = Context.setup();
-    let expectedNode = <title> (ReasonReact.string(title)) </title>;
-    expect(Enzyme.contains(expectedNode, wrapper)) |> toBe(true);
+    module MetaTagsDom = MetaTags_MetaTags.Make(MetaTags);
+    MetaTags.setTitle("my title");
+    MetaTags.setDescription("my desc");
+
+    <MetaTagsDom /> |> render |> container |> expect |> JestDom.toContainHTML({j|<title>my title</title>|j});
   })
 );

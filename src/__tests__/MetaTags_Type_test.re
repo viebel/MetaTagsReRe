@@ -1,22 +1,19 @@
 open Jest;
+open Expect;
+open ReactTestingLibrary;
 
-open ExpectJs;
-Testutils.configure();
-
-module Make = (MetaTags: MetaTags.Interface) => {
-  let setup = (~type_) => {
-    module Type = MetaTags_Type.Make(MetaTags);
-    Enzyme.shallow(<Type type_ />);
-  };
-};
+afterEach(cleanup);
 
 describe("Type", () =>
   test("render and get type", () => {
     module MetaTags =
       MetaTags.Make({});
-    module Context = Make(MetaTags);
+    module Type = MetaTags_Type.Make(MetaTags);
     let type_ = "article";
-    let _ = Context.setup(~type_);
-    expect(MetaTags.type_()) |> toEqual(Some(type_));
+
+    let emptyRe = [%bs.re "/^$/g"];
+    <div> <Type type_ /> </div> |> render |> container |> expect |> JestDom.toHaveTextContentRe(emptyRe) |> ignore;
+
+    MetaTags.type_() |> expect |> toEqual(Some(type_));
   })
 );

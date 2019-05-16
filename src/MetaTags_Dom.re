@@ -2,21 +2,16 @@ type document;
 type element;
 type node;
 
-[@bs.val] external document : document = "";
-[@bs.val]
-external querySelector : string => Js.Nullable.t(element) =
-  "document.querySelector";
-[@bs.val]
-external createElement : string => element = "document.createElement";
-[@bs.send] external appendChild : (element, element) => unit = "";
-[@bs.send] external setAttribute : (element, string, string) => unit = "";
-[@bs.send] external getAttribute : (element, string) => string = "";
-[@bs.send] external hasOwnProperty : ('a, string) => bool = "";
-[@bs.val]
-external getElementsByTagName : string => array(element) =
-  "document.getElementsByTagName";
-[@bs.set] external set_innerHTML : (element, string) => unit = "innerHTML";
-[@bs.set] external set_title : (document, string) => unit = "title";
+[@bs.val] external document: document = "";
+[@bs.val] external querySelector: string => Js.Nullable.t(element) = "document.querySelector";
+[@bs.val] external createElement: string => element = "document.createElement";
+[@bs.send] external appendChild: (element, element) => unit = "";
+[@bs.send] external setAttribute: (element, string, string) => unit = "";
+[@bs.send] external getAttribute: (element, string) => string = "";
+[@bs.send] external hasOwnProperty: ('a, string) => bool = "";
+[@bs.val] external getElementsByTagName: string => array(element) = "document.getElementsByTagName";
+[@bs.set] external set_innerHTML: (element, string) => unit = "innerHTML";
+[@bs.set] external set_title: (document, string) => unit = "title";
 
 let getOrCreateMeta = (key, value) => {
   let selector = "meta[" ++ key ++ "='" ++ value ++ "']";
@@ -49,11 +44,7 @@ let getOrCreateTagInHead = tagname =>
   };
 
 let updateMetaTag = (key, content, type_) =>
-  setAttribute(
-    getOrCreateMeta(MetaTags_Metadata_Type.typeToString(type_), key),
-    "content",
-    content,
-  );
+  setAttribute(getOrCreateMeta(MetaTags_Metadata_Type.typeToString(type_), key), "content", content);
 
 let updateTitle = title => set_title(document, title);
 

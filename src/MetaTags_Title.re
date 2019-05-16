@@ -1,14 +1,24 @@
 module Make = (MetaTags: MetaTags.Interface) => {
-  let component = ReasonReact.statelessComponent("Title");
-  let make = (~title=?, _children) => {
-    ...component,
-    render: _ => {
-      let _ =
-        switch (title) {
-        | None => ()
-        | Some(title) => MetaTags.setTitle(title)
-        }; /* It would be better to have this side effect in `didMount` but `didMount` is not called in server side rendering. See https://github.com/reasonml/reason-react/issues/95 */
-      ReasonReact.null;
-    },
+  let setTitle = title =>
+    switch (title) {
+    | None => ()
+    | Some(title) => MetaTags.setTitle(title)
+    };
+
+  let useTitle = title => {
+    setTitle(title);
+    React.useEffect1(
+      () => {
+        setTitle(title);
+        None;
+      },
+      [|title|],
+    );
+  };
+
+  [@react.component]
+  let make = (~title=?, ()) => {
+    useTitle(title);
+    ReasonReact.null;
   };
 };

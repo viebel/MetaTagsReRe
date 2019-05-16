@@ -1,23 +1,19 @@
 open Jest;
+open Expect;
+open ReactTestingLibrary;
 
-open ExpectJs;
-
-Testutils.configure();
-
-module Make = (MetaTags: MetaTags.Interface) => {
-  let setup = (~url) => {
-    module Image = MetaTags_Image.Make(MetaTags);
-    Enzyme.shallow(<Image url />);
-  };
-};
+afterEach(cleanup);
 
 describe("Image", () =>
   test("render and get image", () => {
     module MetaTags =
       MetaTags.Make({});
-    module Context = Make(MetaTags);
+    module Image = MetaTags_Image.Make(MetaTags);
     let url = "http://my.com/aa.jpg";
-    let _ = Context.setup(~url);
-    expect(MetaTags.image()) |> toEqual(Some(url));
+
+    let emptyRe = [%bs.re "/^$/g"];
+    <div> <Image url /> </div> |> render |> container |> expect |> JestDom.toHaveTextContentRe(emptyRe) |> ignore;
+
+    MetaTags.image() |> expect |> toEqual(Some("http://my.com/aa.jpg"));
   })
 );

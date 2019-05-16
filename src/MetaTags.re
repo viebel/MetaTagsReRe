@@ -34,13 +34,11 @@ module type Interface = {
 module Make = (()) : Interface => {
   let subscribers: ref(list(subscriber)) = ref([]);
   let fire = () => subscribers^ |> List.iter(subscriber => subscriber());
-  let addSubscriber = subscriber =>
-    subscribers := [subscriber, ...subscribers^];
+  let addSubscriber = subscriber => subscribers := [subscriber, ...subscribers^];
 
   let a = {map: PairsMap.empty};
 
-  let getAll = () =>
-    a.map |> PairsMap.bindings |> List.map((((k, t), c)) => (k, t, c));
+  let getAll = () => a.map |> PairsMap.bindings |> List.map((((k, t), c)) => (k, t, c));
 
   let transformAll = f => getAll() |> List.map(((k, t, c)) => f(k, t, c));
 

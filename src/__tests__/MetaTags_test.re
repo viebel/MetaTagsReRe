@@ -1,7 +1,6 @@
 open Jest;
 
-open ExpectJs;
-Testutils.configure();
+open Expect;
 
 describe("MetaTags", () => {
   test("transformAll", () => {
@@ -9,8 +8,7 @@ describe("MetaTags", () => {
       MetaTags.Make({});
     let image = "Hello here";
     MyMetaTags.setImage(image);
-    expect(MyMetaTags.transformAll((k, _t, c) => k ++ "@" ++ c))
-    |> toEqual(["og:image@Hello here"]);
+    expect(MyMetaTags.transformAll((k, _t, c) => k ++ "@" ++ c)) |> toEqual(["og:image@Hello here"]);
   });
   test("title set and get", () => {
     module MyMetaTags =

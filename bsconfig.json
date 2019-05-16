@@ -1,13 +1,16 @@
 {
     "name": "meta-tags-re-re",
     "reason": {
-        "react-jsx": 2
+        "react-jsx": 3
     },
     "refmt": 3,
     "bs-dependencies": [
-        "reason-react",
-        "bs-jest",
-        "bs-enzyme"
+        "reason-react"
+    ],
+    "bs-dev-dependencies": [
+        "@glennsl/bs-jest",
+        "bs-jest-dom",
+        "bs-react-testing-library",
     ],
     "bsc-flags": [
         "-bs-no-version-header",

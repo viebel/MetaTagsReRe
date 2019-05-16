@@ -1,19 +1,23 @@
 {
   "name": "meta-tags-re-re",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "main": "index.js",
   "author": "Yehonathan Sharvit",
+  "contributors": [
+    "Joseph Maarek <josephmaarek@gmail.com>"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "bs-enzyme": "0.4.0",
-    "bs-jest": "^0.3.2",
-    "bs-platform": "^4.0.5",
-    "enzyme-adapter-react-16": "1.3.0",
-    "reason-react": "^0.5.3"
+    "@glennsl/bs-jest": "^0.4.8",
+    "@team-griffin/install-self-peers": "^1.1.1",
+    "bs-jest-dom": "^2.0.1",
+    "bs-platform": "^5.0.4",
+    "bs-react-testing-library": "^0.5.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "reason-react": "^0.7.0"
   },
   "jest": {
     "testURL": "http://www.localhost.com",
@@ -28,6 +32,7 @@
     "test": "jest lib/js/src/__tests__",
     "test:watch": "jest lib/js/src/__tests__ --watchAll",
     "clean": "bsb -clean-world && rm -Rvf lib/output",
-    "refmt": "refmt -w 80 --in-place $(find src -name '*.re') $(find src -name '*.rei')"
+    "refmt": "bsrefmt -w 120 --in-place $(find src -name '*.re') $(find src -name '*.rei')",
+    "prepare": "install-self-peers -- --ignore-scripts"
   }
 }
