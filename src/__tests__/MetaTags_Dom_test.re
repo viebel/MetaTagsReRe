@@ -6,13 +6,13 @@ open Expect;
 
 [@bs.val] external querySelector: string => element = "document.querySelector";
 
-[@bs.send] external remove: element => unit = "";
+[@bs.send] external remove: element => unit = "remove";
 
 [@bs.set] external set_innerHTML: (element, string) => unit = "innerHTML";
 
 [@bs.get] external get_innerHTML: element => string = "innerHTML";
 
-[@bs.send] external getAttribute: (element, string) => string = "";
+[@bs.send] external getAttribute: (element, string) => string = "getAttribute";
 
 [@bs.send.pipe: element] external getAttributePipe: string => string = "getAttribute";
 
