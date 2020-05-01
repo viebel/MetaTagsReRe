@@ -2,13 +2,13 @@ type document;
 type element;
 type node;
 
-[@bs.val] external document: document = "";
+[@bs.val] external document: document = "document";
 [@bs.val] external querySelector: string => Js.Nullable.t(element) = "document.querySelector";
 [@bs.val] external createElement: string => element = "document.createElement";
-[@bs.send] external appendChild: (element, element) => unit = "";
-[@bs.send] external setAttribute: (element, string, string) => unit = "";
-[@bs.send] external getAttribute: (element, string) => string = "";
-[@bs.send] external hasOwnProperty: ('a, string) => bool = "";
+[@bs.send] external appendChild: (element, element) => unit = "appendChild";
+[@bs.send] external setAttribute: (element, string, string) => unit = "setAttribute";
+[@bs.send] external getAttribute: (element, string) => string = "setAttribute";
+[@bs.send] external hasOwnProperty: ('a, string) => bool = "hasOwnProperty";
 [@bs.val] external getElementsByTagName: string => array(element) = "document.getElementsByTagName";
 [@bs.set] external set_innerHTML: (element, string) => unit = "innerHTML";
 [@bs.set] external set_title: (document, string) => unit = "title";
